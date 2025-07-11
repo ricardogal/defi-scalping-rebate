@@ -1,0 +1,133 @@
+# Arquivos de configuração sensíveis
+config.json
+.env
+.env.local
+.env.production
+.env.staging
+
+# Banco de dados
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+log/
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# IDEs e editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários
+*.tmp
+*.temp
+.tmp/
+.temp/
+
+# Arquivos de backup
+*.bak
+*.backup
+*.old
+
+# Arquivos de teste
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Arquivos de documentação gerados
+docs/_build/
+site/
+
+# Arquivos de configuração local
+local_config.json
+local_config.py
+
+# Arquivos de chaves e credenciais
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Arquivos de dados sensíveis
+*.csv
+data/backup/
+data/exports/
+
+# Arquivos de cache
+.cache/
+cache/
+
+# Arquivos de relatórios temporários
+reports/
+*.report
+*.out
+
+# Arquivos de debug
+debug.log
+debug_*.log
+
+# Arquivos de configuração específicos do sistema
+config/local.json
+config/production.json
+config/staging.json
+
+# Arquivos de lock de dependências (se usar pip-tools)
+requirements.txt.lock
+Pipfile.lock
+
+# Arquivos de métricas e monitoramento
+metrics/
+monitoring/
+*.metrics
+
+# Arquivos de backup automático
+*.backup.*
+backup_* 
