@@ -1,0 +1,28 @@
+{
+  "dry_run": false,
+  "quantidade_padrao": 0.001,
+  "spread_alvo": 0.003,
+  "slippage_tolerancia": 0.0003,
+  "intervalo_execucao": 5,
+  "limites_capital": {
+    "BTC/USDT": 5,
+    "ETH/USDT": 5,
+    "SOL/USDT": 5,
+    "XRP/USDT": 5,
+    "DOGE/USDT": 5,
+    "ADA/USDT": 5,
+    "LTC/USDT": 5
+  },
+  "quantidades_personalizadas": {
+    "BTC/USDT": 0.00005,   
+    "ETH/USDT": 0.0015,    
+    "SOL/USDT": 0.03,      
+    "XRP/USDT": 2,         
+    "DOGE/USDT": 10,       
+    "ADA/USDT": 5,         
+    "LTC/USDT": 0.01       
+  },
+  "modo_flexivel": false,
+  "pares": ["BTC/USDT", "ETH/USDT", "SOL/USDT", "XRP/USDT", "DOGE/USDT", "ADA/USDT", "LTC/USDT"]
+}
+  

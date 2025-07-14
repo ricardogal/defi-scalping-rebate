@@ -7,11 +7,11 @@ from rich.text import Text
 from time import sleep, time
 import sys
 from pathlib import Path
-
+from dotenv import load_dotenv
 sys.path.append(str(Path(__file__).parent.parent))
 
 from repository.database_repository import DatabaseRepository
-
+load_dotenv()
 console = Console()
 
 def criar_tabela_trades(trades):
@@ -34,9 +34,11 @@ def criar_tabela_trades(trades):
     return table
 
 def painel_loop(intervalo=5):
-    db = DatabaseRepository()
+    import os
+    DATA_DIR = os.getenv("DATA_DIR")        
+    db = DatabaseRepository(f"{DATA_DIR}/scalping.db")
     start_time = time()
-
+    
     with Live(refresh_per_second=2, screen=True) as live:
         while True:
             trades = db.fetch_trades()

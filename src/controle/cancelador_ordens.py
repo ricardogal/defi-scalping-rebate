@@ -1,14 +1,21 @@
 import time
 from datetime import datetime, timedelta
+import os
+from pathlib import Path
+import sys
+sys.path.append(str(Path(__file__).parent.parent))
+from dotenv import load_dotenv
+load_dotenv()
+
 from repository.database_repository import DatabaseRepository
 from services.log_service import LogService
 from services.exchange_executor import ExchangeExecutor
-import os
 
 TEMPO_MAXIMO = 60  # segundos
 
 def cancelar_ordens_pendentes():
-    db = DatabaseRepository()
+    DATA_DIR = os.getenv("DATA_DIR", "./data")  # Valor padrão se não estiver definido
+    db = DatabaseRepository(f"{DATA_DIR}/scalping.db")
     log = LogService(db)
     executor = ExchangeExecutor(
         api_key=os.getenv("BINANCE_API_KEY"),
@@ -35,5 +42,7 @@ def cancelar_ordens_pendentes():
                 log.error(f"Erro ao cancelar {ordem_id}: {e}")
 
             db.remover_ordem_aberta(ordem_id)   
+    else:
+        print("Nenhuma ordem pendente") 
 
     db.close()

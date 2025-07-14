@@ -3,6 +3,7 @@ from datetime import datetime
 
 class DatabaseRepository:    
     def __init__(self, db_path="/home/tiozinho-gamer/domains/defi-scalping/data/scalping.db"):
+        print(f"[DB] Iniciando conexão com {db_path}")
         self.conn = sqlite3.connect(db_path)
         self._create_tables()
 
@@ -29,12 +30,24 @@ class DatabaseRepository:
                 )
             """)
 
+            self.conn.execute("""
+                CREATE TABLE IF NOT EXISTS eventos (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    tipo_evento TEXT,
+                    par TEXT,
+                    mensagem TEXT,
+                    detalhe_json TEXT,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+                )
+            """)
+
     def save_trade(self, symbol, side, price, quantity, rebate, pnl):
+        timestamp = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
         with self.conn:
             self.conn.execute("""
-                INSERT INTO trades (symbol, side, price, quantity, rebate, pnl)
-                VALUES (?, ?, ?, ?, ?, ?)
-            """, (symbol, side, price, quantity, rebate, pnl))
+                INSERT INTO trades (symbol, side, price, quantity, rebate, pnl, timestamp)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, (symbol, side, price, quantity, rebate, pnl, timestamp))
 
     def save_log(self, level, message):
         with self.conn:
@@ -57,6 +70,23 @@ class DatabaseRepository:
     def remover_ordem_aberta(self, ordem_id):
         with self.conn:
             self.conn.execute("DELETE FROM ordens_abertas WHERE id = ?", (ordem_id,))
+
+    def salvar_ordem_aberta(self, ordem_id, symbol, side, price, quantity):
+        with self.conn:
+            self.conn.execute("""
+                INSERT INTO ordens_abertas (id, symbol, side, price, quantity)
+                VALUES (?, ?, ?, ?, ?)
+            """, (ordem_id, symbol, side, price, quantity))
+
+    def registrar_evento(self, tipo_evento, par, mensagem, detalhe=None):
+        import json
+        detalhe_str = json.dumps(detalhe) if detalhe else None
+        with self.conn:
+            self.conn.execute("""
+                INSERT INTO eventos (tipo_evento, par, mensagem, detalhe_json)
+                VALUES (?, ?, ?, ?)
+            """, (tipo_evento, par, mensagem, detalhe_str))
+
 
     def close(self):
         self.conn.close()

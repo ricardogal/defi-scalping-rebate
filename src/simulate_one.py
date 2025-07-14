@@ -5,7 +5,7 @@ from services.exchange_executor import ExchangeExecutor
 from core.trade_engine import TradeEngine
 from controle.capital_manager import CapitalManager
 from utils.config_loader import carregar_config
-
+from services.event_logger import EventLogger
 cfg = carregar_config()
 
 def simular_ciclo_unico():
@@ -16,14 +16,15 @@ def simular_ciclo_unico():
         secret=os.getenv("API_SECRET")
     )
     capital = CapitalManager(cfg["limites_capital"])
-
+    event_logger = EventLogger(db)
     engine = TradeEngine(
         executor=executor,
         db_repo=db,
         logger=logger,
         dry_run=cfg["dry_run"],
         slippage_tolerance=cfg["slippage_tolerancia"],
-        capital_manager=capital
+        capital_manager=capital,
+        event_logger=event_logger
     )
 
     symbol = cfg["pares"][0]  # roda o primeiro par do config

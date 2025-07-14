@@ -1,0 +1,13 @@
+{
+  "dry_run": true,
+  "quantidade_padrao": 0.001,
+  "spread_alvo": 0.015,
+  "slippage_tolerancia": 0.01,
+  "intervalo_execucao": 10,
+  "limites_capital": {
+    "BTC/USDT": 20,
+    "ETH/USDT": 15,
+    "SOL/USDT": 10
+  },
+  "pares": ["BTC/USDT", "ETH/USDT", "SOL/USDT"]
+} 
